@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:das_spiel/main.dart';
-import 'package:das_spiel/settings.dart';
-import 'package:das_spiel/widgets/text_checkbox.dart';
+import 'package:SignWriting/main.dart';
+import 'package:SignWriting/settings.dart';
+import 'package:SignWriting/widgets/text_checkbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

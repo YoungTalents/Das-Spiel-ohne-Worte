@@ -1,6 +1,6 @@
-import 'package:das_spiel/environment.dart';
-import 'package:das_spiel/intro_slide.dart';
-import 'package:das_spiel/pages/main_menu.dart';
+import 'package:SignWriting/environment.dart';
+import 'package:SignWriting/intro_slide.dart';
+import 'package:SignWriting/pages/main_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 

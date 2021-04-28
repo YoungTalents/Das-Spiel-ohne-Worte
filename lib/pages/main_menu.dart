@@ -1,9 +1,9 @@
-import 'package:das_spiel/environment.dart';
-import 'package:das_spiel/pages/Games.dart';
-import 'package:das_spiel/pages/basics.dart';
-import 'package:das_spiel/pages/exercises.dart';
-import 'package:das_spiel/pages/intro.dart';
-import 'package:das_spiel/sign_writing_page.dart';
+import 'package:SignWriting/environment.dart';
+import 'package:SignWriting/pages/Games.dart';
+import 'package:SignWriting/pages/basics.dart';
+import 'package:SignWriting/pages/exercises.dart';
+import 'package:SignWriting/pages/intro.dart';
+import 'package:SignWriting/sign_writing_page.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatelessWidget {

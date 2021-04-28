@@ -1,4 +1,4 @@
-import 'package:das_spiel/sign_writing_page.dart';
+import 'package:SignWriting/sign_writing_page.dart';
 import 'package:flutter/material.dart';
 
 class Excercises extends StatelessWidget {

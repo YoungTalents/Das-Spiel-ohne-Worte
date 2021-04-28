@@ -1,5 +1,5 @@
-import 'package:das_spiel/environment.dart';
-import 'package:das_spiel/side_menu.dart';
+import 'package:SignWriting/environment.dart';
+import 'package:SignWriting/side_menu.dart';
 import 'package:flutter/material.dart';
 
 class SignWritingPage extends StatefulWidget {

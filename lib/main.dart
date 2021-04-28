@@ -1,6 +1,6 @@
-import 'package:das_spiel/pages/intro.dart';
-import 'package:das_spiel/pages/main_menu.dart';
-import 'package:das_spiel/settings.dart';
+import 'package:SignWriting/pages/intro.dart';
+import 'package:SignWriting/pages/main_menu.dart';
+import 'package:SignWriting/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';

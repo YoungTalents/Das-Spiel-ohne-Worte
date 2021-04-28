@@ -1,6 +1,6 @@
-import 'package:das_spiel/environment.dart';
-import 'package:das_spiel/sign_writing_page.dart';
-import 'package:das_spiel/widgets/matching_game.dart';
+import 'package:SignWriting/environment.dart';
+import 'package:SignWriting/sign_writing_page.dart';
+import 'package:SignWriting/widgets/matching_game.dart';
 import 'package:flutter/material.dart';
 
 class TheGame extends StatelessWidget {
