@@ -1,0 +1,2 @@
+double wWidth;
+double wHeight;
