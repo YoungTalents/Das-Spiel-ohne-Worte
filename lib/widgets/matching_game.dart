@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:video_player/video_player.dart';
 
 class MatchingGame extends StatefulWidget {
-  final Map<Object, int> map;
+  final Map<TileContent, int> map;
 
   const MatchingGame({Key key, this.map}) : super(key: key);
 
@@ -11,13 +12,29 @@ class MatchingGame extends StatefulWidget {
 }
 
 class MatchingGameState extends State<MatchingGame> {
-  var shuffledTiles = [];
+  List<Tile> shuffledTiles = [];
   int currentGroup;
 
   @override
   void initState() {
-    super.initState();
     _initBoard();
+    super.initState();
+  }
+
+  void dispose() {
+    getAllVideoContents().forEach((vc) { vc.dispose(); });
+    super.dispose();
+  }
+
+  Future<void> _initVideoPlayersFuture() async {
+    getAllVideoContents().forEach((element) async {
+      await element.isInitialized;
+    });
+  }
+
+  List<VideoContent> getAllVideoContents() {
+    List<Tile> videoItems = shuffledTiles.where((Tile t) => t.content is VideoContent).toList();
+    return videoItems.map((vi) => vi.content as VideoContent).toList();
   }
 
   void _initBoard() async {
@@ -32,28 +49,40 @@ class MatchingGameState extends State<MatchingGame> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children:[
-      GridView.count(
-        shrinkWrap: true,
-        crossAxisCount: 3,
-        children: shuffledTiles.map((tile) => GameTile(tile)).toList()
-      ),
-      Visibility(
-        visible: shuffledTiles.every((t) => t.status == TileStatus.Done) ,
-        child: ElevatedButton(
-          onPressed: () { setState(() {
-            _initBoard();
-          });  },
-          child: Text("Play Again"),), 
-      )
-    ]);
+    return FutureBuilder(
+      future: _initVideoPlayersFuture(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return Column(children:[
+            GridView.count(
+              mainAxisSpacing: 5,
+              crossAxisSpacing: 5,
+              shrinkWrap: true,
+              crossAxisCount: 3,
+              children: shuffledTiles.map((tile) => GameTile(tile)).toList()
+            ),
+            Visibility(
+              visible: shuffledTiles.every((t) => t.status == TileStatus.Done) ,
+              child: ElevatedButton(
+                onPressed: () { setState(() {
+                  _initBoard();
+                });  },
+                child: Text("Play Again"),), 
+            )
+          ]);
+        }
+      }
+    );
   }
 
   Widget GameTile(Tile tile)  {
-    return Container(padding: EdgeInsets.all(5), 
+    return Container(width:5, 
       child: tile.status == TileStatus.Done
       ? null 
       : ElevatedButton(
+          style: ElevatedButton.styleFrom(primary: Colors.blueGrey, padding: EdgeInsets.all(3)),
           onPressed: tile.status == TileStatus.Default
           ? () { setState(() {
 
@@ -71,16 +100,106 @@ class MatchingGameState extends State<MatchingGame> {
             }
           }); }
           : null,
-          child: Text(tile.content),));
+          child: tile.content.getWidget(),));
   }
 }
 
 enum TileStatus { Default, Chosen, Done }
 
+abstract class TileContent {
+  Widget getWidget();
+}
+
+class VideoContent extends TileContent {
+  String _videoUrl;
+  VideoPlayerController _controller;
+  Future<void> isInitialized;
+
+  VideoContent(videoUrl) {
+    _videoUrl = videoUrl;
+    _controller = VideoPlayerController.network(_videoUrl);
+    _controller.setLooping(true);
+    _controller.play();
+    _controller.setVolume(0);
+    isInitialized = _controller.initialize();
+  }
+
+  String getVideoUrl() {
+    return _videoUrl;
+  }
+
+  @override
+  Widget getWidget() {
+    return AspectRatio(aspectRatio: _controller.value.aspectRatio, child: VideoPlayer(_controller));
+  }
+
+  void dispose() {
+    _controller.dispose();
+  }
+}
+class WidgetContent extends TileContent {
+  
+  Widget _widgetContent;
+
+  WidgetContent(widget) {
+    this._widgetContent = widget;
+  }
+
+  @override
+  Widget getWidget() {
+    return _widgetContent;
+  }
+}
+
+class TextContent extends TileContent {
+  String _widgetContent;
+
+  TextContent(text) {
+    this._widgetContent = text;
+  }
+
+  @override
+  Widget getWidget() {
+    return Text(_widgetContent);
+  }
+}
+
+class ImageContent extends TileContent {
+  Image _widgetContent;
+
+  ImageContent(image) {
+    this._widgetContent = image;
+  }
+
+  @override
+  Widget getWidget() {
+    return _widgetContent;
+  }
+}
+
+class ImageTextContent extends TileContent {
+  Image _widgetImageContent;
+  String _widgetTextContent;
+
+  ImageTextContent(image, text) {
+    this._widgetImageContent = image;
+    this._widgetTextContent = text;
+  }
+
+  @override
+  Widget getWidget() {
+    return Stack(children:[
+      Container(padding: EdgeInsets.only(bottom: 20), child:
+      _widgetImageContent),
+      Positioned(bottom:0, child:Text(_widgetTextContent))
+    ]);
+  }
+}
+
 class Tile {
   int id;
   int group;
-  String content;
+  TileContent content;
   TileStatus status;
 
   Tile(_content, _id, _group) { 
