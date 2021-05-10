@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-import 'package:SignWriting/main.dart';
-import 'package:SignWriting/settings.dart';
-import 'package:SignWriting/widgets/text_checkbox.dart';
+import 'package:sign_writing/main.dart';
+import 'package:sign_writing/settings.dart';
+import 'package:sign_writing/widgets/text_checkbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

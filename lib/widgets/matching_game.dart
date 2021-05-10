@@ -57,8 +57,8 @@ class MatchingGameState extends State<MatchingGame> {
         } else {
           return Column(children:[
             GridView.count(
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 5,
+              mainAxisSpacing: 3,
+              crossAxisSpacing: 3,
               shrinkWrap: true,
               crossAxisCount: 3,
               children: shuffledTiles.map((tile) => GameTile(tile)).toList()
@@ -82,7 +82,11 @@ class MatchingGameState extends State<MatchingGame> {
       child: tile.status == TileStatus.Done
       ? null 
       : ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.blueGrey, padding: EdgeInsets.all(3)),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white,
+            padding: EdgeInsets.all(3),
+            side: BorderSide(width: 3, color: tile.status == TileStatus.Chosen ? Colors.black : Colors.white)
+            ),
           onPressed: tile.status == TileStatus.Default
           ? () { setState(() {
 
@@ -100,7 +104,9 @@ class MatchingGameState extends State<MatchingGame> {
             }
           }); }
           : null,
-          child: tile.content.getWidget(),));
+          child: tile.content.getWidget(),
+      )
+    );
   }
 }
 

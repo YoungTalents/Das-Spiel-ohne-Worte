@@ -1,4 +1,4 @@
-name: SignWriting
+name: sign_writing
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -18,11 +18,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.11.0 <3.0.0"
 
 dependencies:
   video_player:
-  shared_preferences: ^2.0.5
+  shared_preferences: 0.5.6
   carousel_slider: ^3.0.0
   toast: ^0.1.5
   flutter:
@@ -48,10 +48,14 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-  # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+     - assets/gifs/
+     - assets/images/ic_image101.jpg
+     - assets/images/ic_image102.jpg
+     - assets/images/ic_image103.jpg
+     - assets/images/ic_image201.jpg
+     - assets/images/ic_image202.jpg
+     - assets/images/ic_image203.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

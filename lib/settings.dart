@@ -1,4 +1,4 @@
-import 'package:SignWriting/main.dart';
+import 'package:sign_writing/main.dart';
 
 class PreferencesKey {
   static const String LANGUAGE = "language";

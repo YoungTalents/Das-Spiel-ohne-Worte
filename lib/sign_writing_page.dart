@@ -1,5 +1,5 @@
-import 'package:SignWriting/environment.dart';
-import 'package:SignWriting/side_menu.dart';
+import 'package:sign_writing/environment.dart';
+import 'package:sign_writing/side_menu.dart';
 import 'package:flutter/material.dart';
 
 class SignWritingPage extends StatefulWidget {
@@ -33,48 +33,48 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
     GlobalKey _scaffoldKey = this.widget.passkey;
 
     return Scaffold(
-          key: _scaffoldKey,
-          drawerScrimColor: Colors.transparent,
-          drawer: SideMenu(),
-          body: Container(color: Colors.black12,
-            child: Container(
-              width: wWidth,
-              height: wHeight,
-              child: Stack(children: <Widget>[
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: wWidth * 0.001, vertical: wHeight * 0.02 ),
-                  child:Column(children: [
-                    Container(height:30, child: 
-                      Stack(children:[
-                        Positioned(
-                          top: -12,
-                          right: 30,
-                          child: Visibility(visible: widget.title != "Main Menu",
-                            child:IconButton(icon: Icon(Icons.arrow_back_ios_outlined, size: 24,),  onPressed: () { Navigator.pop(context); },)),),
-                        Row(mainAxisAlignment: MainAxisAlignment.center,
-                          children:[
-                            Text(widget.title, textAlign: TextAlign.center, style: TextStyle(fontSize: 24),)
-                          ]
-                        )
-                      ])
-                    ),
-                    widget.body,
-                  ])),
-                Positioned(
-                  top: wHeight * 0.001,
-                  left: wWidth * 0.001,
-                  child: Container(
-                    child: IconButton(
-                      iconSize: wWidth * 0.1 ,
-                      icon: Icon(Icons.menu),
-                      color: Colors.blueGrey,
-                      onPressed: () { (_scaffoldKey.currentState as ScaffoldState).openDrawer(); },
+      key: _scaffoldKey,
+      drawerScrimColor: Colors.transparent,
+      drawer: SideMenu(),
+      body: Container(color: Colors.black12,
+        child: Container(
+          width: wWidth,
+          height: wHeight,
+          child: Stack(children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: wWidth * 0.001, vertical: wHeight * 0.02 ),
+              child:Column(children: [
+                Container(height:30, child: 
+                  Stack(children:[
+                    Positioned(
+                      top: -12,
+                      right: 30,
+                      child: Visibility(visible: widget.title != "Main Menu",
+                        child:IconButton(icon: Icon(Icons.arrow_back_ios_outlined, size: 24,),  onPressed: () { Navigator.pop(context); },)),),
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children:[
+                        Text(widget.title, textAlign: TextAlign.center, style: TextStyle(fontSize: 24),)
+                      ]
                     )
-                  )
+                  ])
+                ),
+                widget.body,
+              ])),
+            Positioned(
+              top: wHeight * 0.001,
+              left: wWidth * 0.001,
+              child: Container(
+                child: IconButton(
+                  iconSize: wWidth * 0.1 ,
+                  icon: Icon(Icons.menu),
+                  color: Colors.blueGrey,
+                  onPressed: () { (_scaffoldKey.currentState as ScaffoldState).openDrawer(); },
                 )
-              ]),
+              )
             )
-          )
-        );
-      }
+          ]),
+        )
+      )
+    );
+  }
 }

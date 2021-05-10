@@ -1,6 +1,6 @@
-import 'package:SignWriting/environment.dart';
-import 'package:SignWriting/intro_slide.dart';
-import 'package:SignWriting/pages/main_menu.dart';
+import 'package:sign_writing/environment.dart';
+import 'package:sign_writing/intro_slide.dart';
+import 'package:sign_writing/pages/main_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -72,7 +72,7 @@ class _IntroState extends State<Intro> {
               _currentIndex == slidesList.length - 1
               ? Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MainMenu())); }, child: Text("Got it!"))
+                    TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MainMenu())); }, child: Text("Got it!", style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
               ],) 
               : Row(
                 mainAxisAlignment: MainAxisAlignment.center,

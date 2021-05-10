@@ -1,6 +1,6 @@
-import 'package:SignWriting/environment.dart';
-import 'package:SignWriting/sign_writing_page.dart';
-import 'package:SignWriting/widgets/matching_game.dart';
+import 'package:sign_writing/environment.dart';
+import 'package:sign_writing/sign_writing_page.dart';
+import 'package:sign_writing/widgets/matching_game.dart';
 import 'package:flutter/material.dart';
 
 class TheGame extends StatelessWidget {
@@ -19,15 +19,15 @@ class TheGame extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: wWidth * 0.02, vertical: wHeight * 0.02),
             child:
               MatchingGame(map: {
-                TextContent("1"):1,
-                TextContent("2"):2,
-                TextContent("3"):3, 
-                VideoContent("https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"):1,
-                VideoContent("https://sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4"):2,
-                ImageContent(Image.network("https://icons.iconarchive.com/icons/iconarchive/red-orb-alphabet/256/Number-3-icon.png")):3,
-                ImageTextContent(Image.network("https://icons.iconarchive.com/icons/iconarchive/red-orb-alphabet/256/Number-1-icon.png"), "pic 1"):1,
-                ImageTextContent(Image.network("https://icons.iconarchive.com/icons/iconarchive/red-orb-alphabet/256/Number-2-icon.png"), "pic 2"):2,
-                ImageTextContent(Image.network("https://icons.iconarchive.com/icons/iconarchive/red-orb-alphabet/256/Number-3-icon.png"), "pic 3"):3
+                ImageContent(Image.asset("assets/images/ic_image201.jpg")):1,
+                ImageContent(Image.asset("assets/images/ic_image202.jpg")):2,
+                ImageContent(Image.asset("assets/images/ic_image203.jpg")):3,
+                ImageContent(Image.asset("assets/gifs/autogif.gif")):1,
+                ImageContent(Image.asset("assets/gifs/baumgif.gif")):2,
+                ImageContent(Image.asset("assets/gifs/kaffeegif.gif")):3,
+                ImageContent(Image.asset("assets/images/ic_image101.jpg")):1,
+                ImageContent(Image.asset("assets/images/ic_image102.jpg")):2,
+                ImageContent(Image.asset("assets/images/ic_image103.jpg")):3
               })
             )
         ])

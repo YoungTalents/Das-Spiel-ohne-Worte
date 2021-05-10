@@ -1,6 +1,6 @@
-import 'package:SignWriting/environment.dart';
-import 'package:SignWriting/pages/the_game.dart';
-import 'package:SignWriting/sign_writing_page.dart';
+import 'package:sign_writing/environment.dart';
+import 'package:sign_writing/pages/the_game.dart';
+import 'package:sign_writing/sign_writing_page.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
 

@@ -1,6 +1,6 @@
-import 'package:SignWriting/pages/intro.dart';
-import 'package:SignWriting/pages/main_menu.dart';
-import 'package:SignWriting/settings.dart';
+import 'package:sign_writing/pages/intro.dart';
+import 'package:sign_writing/pages/main_menu.dart';
+import 'package:sign_writing/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
