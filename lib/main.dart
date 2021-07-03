@@ -1,5 +1,6 @@
 import 'package:sign_writing/pages/intro.dart';
 import 'package:sign_writing/pages/main_menu.dart';
+import 'package:sign_writing/pages/the_game.dart';
 import 'package:sign_writing/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,12 +25,12 @@ Future<void> loadSettings() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return SizedBox(height:900, width:1500, child:MaterialApp(
       title: 'Das Spiel',
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SystemSettings.showIntro ? Intro() : MainMenu(),
-    );
+      home: TheGame()// SystemSettings.showIntro ? Intro() : MainMenu(),
+    ));
   }
 }

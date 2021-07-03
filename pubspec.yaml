@@ -24,6 +24,7 @@ dependencies:
   video_player:
   shared_preferences: 0.5.6
   carousel_slider: ^3.0.0
+  flutter_gifimage: ^1.0.1
   toast: ^0.1.5
   flutter:
     sdk: flutter

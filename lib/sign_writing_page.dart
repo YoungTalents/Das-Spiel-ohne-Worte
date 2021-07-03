@@ -34,8 +34,8 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
 
     return Scaffold(
       key: _scaffoldKey,
-      drawerScrimColor: Colors.transparent,
-      drawer: SideMenu(),
+      // drawerScrimColor: Colors.transparent,
+      // drawer: SideMenu(),
       body: Container(color: Colors.black12,
         child: Container(
           width: wWidth,
@@ -49,7 +49,7 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
                     Positioned(
                       top: -12,
                       right: 30,
-                      child: Visibility(visible: widget.title != "Main Menu",
+                      child: Visibility(visible: false, // widget.title != "Main Menu",
                         child:IconButton(icon: Icon(Icons.arrow_back_ios_outlined, size: 24,),  onPressed: () { Navigator.pop(context); },)),),
                     Row(mainAxisAlignment: MainAxisAlignment.center,
                       children:[
@@ -60,7 +60,7 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
                 ),
                 widget.body,
               ])),
-            Positioned(
+/*            Positioned(
               top: wHeight * 0.001,
               left: wWidth * 0.001,
               child: Container(
@@ -71,7 +71,7 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
                   onPressed: () { (_scaffoldKey.currentState as ScaffoldState).openDrawer(); },
                 )
               )
-            )
+            )*/
           ]),
         )
       )
