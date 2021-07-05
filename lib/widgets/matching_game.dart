@@ -1,24 +1,78 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:video_player/video_player.dart';
+import 'package:sign_writing/game_management.dart';
+import 'package:sign_writing/widgets/game_tile.dart';
 
 class MatchingGame extends StatefulWidget {
-  final Map<TileContent, int> map;
-
-  const MatchingGame({Key key, this.map}) : super(key: key);
+  const MatchingGame({Key key}) : super(key: key);
 
   @override
   MatchingGameState createState() => MatchingGameState();
 }
 
 class MatchingGameState extends State<MatchingGame> {
+  Map<TileContent, int> gameMap;
   List<Tile> shuffledTiles = [];
-  int currentGroup;
+  List<Widget> tilesList = [];
+
+  TileContent generateContent(GroupItem contentDef) {
+    TileContent tileContent;
+
+    switch (contentDef.type) {
+      case "Image": tileContent = ImageContent(Image.asset(contentDef.value)); break;
+      case "Text": tileContent = TextContent(contentDef.value); break;
+      case "Video": tileContent = VideoContent(contentDef.value); break;
+    }
+
+    return tileContent;
+  }
+
+  void _initGameMap() {
+    int i1, i2, i3;
+    Random random = new Random();
+    
+    i1 = random.nextInt(groups.length);
+    while ({null, i1}.contains(i2)) i2 = random.nextInt(groups.length);
+    while ({null, i1, i2}.contains(i3)) i3 = random.nextInt(groups.length);
+    
+    print("Chosen Groups: " + groups[i1].name + ", " + groups[i2].name + ", " + groups[i3].name);
+      gameMap = {
+        generateContent(groups[i1].entries[0]) : 1,
+        generateContent(groups[i1].entries[1]) : 1,
+        generateContent(groups[i1].entries[2]) : 1,
+        generateContent(groups[i2].entries[0]) : 2,
+        generateContent(groups[i2].entries[1]) : 2,
+        generateContent(groups[i2].entries[2]) : 2,
+        generateContent(groups[i3].entries[0]) : 3,
+        generateContent(groups[i3].entries[1]) : 3,
+        generateContent(groups[i3].entries[2]) : 3
+        /*ImageContent(Image.asset("assets/images/ic_image201.jpg")):1,
+        ImageContent(Image.asset("assets/images/ic_image202.jpg")):2,
+        ImageContent(Image.asset("assets/images/ic_image203.jpg")):3,
+
+        //ImageContent(Image.asset("assets/images/ic_image201.jpg")):1,
+        //ImageContent(Image.asset("assets/images/ic_image202.jpg")):2,
+        //ImageContent(Image.asset("assets/images/ic_image203.jpg")):3,
+        VideoContent("assets/videos/auto.mp4"):1,
+        VideoContent("assets/videos/baum.mp4"):2,
+        VideoContent("assets/videos/kaffee.mp4"):3,
+        ImageContent(Image.asset("assets/images/ic_image101.jpg")):1,
+        ImageContent(Image.asset("assets/images/ic_image102.jpg")):2,
+        ImageContent(Image.asset("assets/images/ic_image103.jpg")):3*/
+      }; 
+  }
 
   @override
   void initState() {
-    _initBoard();
+    initGame();
     super.initState();
+  }
+
+  void initGame() {
+    _initGameMap();
+    _initBoard();
   }
 
   void dispose() {
@@ -27,9 +81,10 @@ class MatchingGameState extends State<MatchingGame> {
   }
 
   Future<void> _initVideoPlayersFuture() async {
-    getAllVideoContents().forEach((element) async {
-      await element.isInitialized;
-    });
+    if (!tiles.every((t) => t.status == TileStatus.Done))
+      getAllVideoContents().forEach((element) async {
+        await element.isInitialized;
+      });
   }
 
   List<VideoContent> getAllVideoContents() {
@@ -40,178 +95,47 @@ class MatchingGameState extends State<MatchingGame> {
   void _initBoard() async {
     shuffledTiles.clear();
 
-    for (int i = 0; i < widget.map.length; i++) {
-      shuffledTiles.add(Tile(widget.map.keys.elementAt(i), i, widget.map.values.elementAt(i)));
+    for (int i = 0; i < gameMap.length; i++) {
+      shuffledTiles.add(Tile(gameMap.keys.elementAt(i), i, gameMap.values.elementAt(i)));
     }
 
     shuffledTiles.shuffle();
+    tiles = shuffledTiles;
+    // tilesList = tiles.map((tile) => GestureDetector(onTap: () {print("tap " + tile.id.toString()); },  child:GameTile(key: ObjectKey(tile), tile: tile))).toList();
+    //GestureDetector a = tilesList.first;
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _initVideoPlayersFuture(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState != ConnectionState.done) {
-          return Center(child: CircularProgressIndicator());
-        } else {
-          return Column(children:[
-            GridView.count(
-              mainAxisSpacing: 3,
-              crossAxisSpacing: 3,
-              shrinkWrap: true,
-              crossAxisCount: 3,
-              children: shuffledTiles.map((tile) => GameTile(tile)).toList()
-            ),
-            Visibility(
-              visible: shuffledTiles.every((t) => t.status == TileStatus.Done) ,
-              child: ElevatedButton(
-                onPressed: () { setState(() {
-                  _initBoard();
-                });  },
-                child: Text("Play Again"),), 
-            )
-          ]);
-        }
-      }
-    );
-  }
-
-  Widget GameTile(Tile tile)  {
-    return Container(width:5, 
-      child: tile.status == TileStatus.Done
-      ? null 
-      : ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            padding: EdgeInsets.all(3),
-            side: BorderSide(width: 3, color: tile.status == TileStatus.Chosen ? Colors.black : Colors.white)
-            ),
-          onPressed: tile.status == TileStatus.Default
-          ? () { setState(() {
-
-            if (currentGroup == tile.group || currentGroup == null) {
-              currentGroup = tile.group;
-              (shuffledTiles.where((t) => (t == tile)).single).status = TileStatus.Chosen;
-              
-              if (shuffledTiles.where((t) => t.group == tile.group).every((element) => element.status == TileStatus.Chosen)) {
-                shuffledTiles.where((t) => t.group == tile.group).forEach((element) {element.status = TileStatus.Done;});
-                currentGroup = null;
-              }
-            } else {
-              currentGroup = null;
-              shuffledTiles.where((t) => t.status == TileStatus.Chosen).forEach((element) {element.status = TileStatus.Default;});
-            }
-          }); }
-          : null,
-          child: tile.content.getWidget(),
-      )
-    );
-  }
-}
-
-enum TileStatus { Default, Chosen, Done }
-
-abstract class TileContent {
-  Widget getWidget();
-}
-
-class VideoContent extends TileContent {
-  String _videoUrl;
-  VideoPlayerController _controller;
-  Future<void> isInitialized;
-
-  VideoContent(videoUrl) {
-    _videoUrl = videoUrl;
-    _controller = VideoPlayerController.network(_videoUrl);
-    _controller.setLooping(true);
-    _controller.play();
-    _controller.setVolume(0);
-    isInitialized = _controller.initialize();
-  }
-
-  String getVideoUrl() {
-    return _videoUrl;
-  }
-
-  @override
-  Widget getWidget() {
-    return AspectRatio(aspectRatio: _controller.value.aspectRatio, child: VideoPlayer(_controller));
-  }
-
-  void dispose() {
-    _controller.dispose();
-  }
-}
-class WidgetContent extends TileContent {
-  
-  Widget _widgetContent;
-
-  WidgetContent(widget) {
-    this._widgetContent = widget;
-  }
-
-  @override
-  Widget getWidget() {
-    return _widgetContent;
-  }
-}
-
-class TextContent extends TileContent {
-  String _widgetContent;
-
-  TextContent(text) {
-    this._widgetContent = text;
-  }
-
-  @override
-  Widget getWidget() {
-    return Text(_widgetContent);
-  }
-}
-
-class ImageContent extends TileContent {
-  Image _widgetContent;
-
-  ImageContent(image) {
-    this._widgetContent = image;
-  }
-
-  @override
-  Widget getWidget() {
-    return _widgetContent;
-  }
-}
-
-class ImageTextContent extends TileContent {
-  Image _widgetImageContent;
-  String _widgetTextContent;
-
-  ImageTextContent(image, text) {
-    this._widgetImageContent = image;
-    this._widgetTextContent = text;
-  }
-
-  @override
-  Widget getWidget() {
-    return Stack(children:[
-      Container(padding: EdgeInsets.only(bottom: 20), child:
-      _widgetImageContent),
-      Positioned(bottom:0, child:Text(_widgetTextContent))
-    ]);
-  }
-}
-
-class Tile {
-  int id;
-  int group;
-  TileContent content;
-  TileStatus status;
-
-  Tile(_content, _id, _group) { 
-    this.content = _content;
-    this.id = _id;
-    this.group = _group;
-    status = TileStatus.Default;
+    print("building game");
+    return Stack(children: [
+      FutureBuilder(
+        future: _initVideoPlayersFuture(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState != ConnectionState.done) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return GridView.count(
+                mainAxisSpacing: 3,
+                crossAxisSpacing: 3,
+                shrinkWrap: true,
+                crossAxisCount: 3,
+                children: tiles.map((tile) => GameTile(key: tile.key, tileId: tile.id, callbackGameOver: () => { setState((){}) })).toList()
+              );
+          }
+        }),
+      Visibility(
+        child: Container(
+          child: Center(child: ElevatedButton(
+          onPressed: () { 
+            setState(() {
+              initGame();
+            }); },
+    
+          child: Text("Play Again"),), 
+        )),
+        visible: tiles.every((t) => t.status == TileStatus.Done) ,
+        
+      )]);
   }
 }

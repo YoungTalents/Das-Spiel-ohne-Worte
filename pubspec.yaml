@@ -50,13 +50,8 @@ flutter:
   uses-material-design: true
 
   assets:
-     - assets/gifs/
-     - assets/images/ic_image101.jpg
-     - assets/images/ic_image102.jpg
-     - assets/images/ic_image103.jpg
-     - assets/images/ic_image201.jpg
-     - assets/images/ic_image202.jpg
-     - assets/images/ic_image203.jpg
+     - assets/videos/
+     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
