@@ -21,17 +21,17 @@ class Games extends StatelessWidget {
             scrollDirection: Axis.vertical,
             crossAxisCount: 3,
             children: [
-              GameButton(TheGame(), "The Game", ""),
-              GameButton(null, "City, Country, River", ""),
-              GameButton(null, "Memory", ""),
-              GameButton(null, "Cards", ""),
-              GameButton(null, "Scrabble", ""), 
+              makeGameButton(TheGame(), "The Game", ""),
+              makeGameButton(null, "City, Country, River", ""),
+              makeGameButton(null, "Memory", ""),
+              makeGameButton(null, "Cards", ""),
+              makeGameButton(null, "Scrabble", ""), 
             ])
         )
     );
   }
 
-  Widget GameButton(_redir, _text, _pic) {
+  Widget makeGameButton(_redir, _text, _pic) {
     return GestureDetector (
       onTap: _redir == null ? () {Toast.show("Not available yet.", gamesContext);} : null,
       child: Container(

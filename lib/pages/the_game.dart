@@ -3,7 +3,6 @@ import 'package:sign_writing/environment.dart';
 import 'package:sign_writing/sign_writing_page.dart';
 
 import 'package:flutter/material.dart';
-import 'package:sign_writing/widgets/game_tile.dart';
 import 'package:sign_writing/widgets/matching_game.dart';
 
 class TheGame extends StatelessWidget {
@@ -22,10 +21,10 @@ class TheGame extends StatelessWidget {
         child: Column(children: [
           Text("Match tiles with the same meaning.", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
           Container( 
-            height:wHeight*0.8, 
+            height: wHeight * 0.8, 
             width: wHeight * 0.8,
             padding: EdgeInsets.symmetric(horizontal: wWidth * 0.02, vertical: wHeight * 0.02),
-            child: SizedBox( height:wHeight*0.8, width: wHeight * 0.8, 
+            child: SizedBox(height: wHeight * 0.8, width: wHeight * 0.8, 
               child: MatchingGame())
             )
         ])

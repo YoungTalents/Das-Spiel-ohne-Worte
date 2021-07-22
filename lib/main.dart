@@ -1,5 +1,5 @@
 import 'package:sign_writing/pages/intro.dart';
-import 'package:sign_writing/pages/main_menu.dart';
+// import 'package:sign_writing/pages/main_menu.dart';
 import 'package:sign_writing/pages/the_game.dart';
 import 'package:sign_writing/settings.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Intro()// SystemSettings.showIntro ? Intro() : MainMenu(),
+      home: SystemSettings.showIntro ? Intro() : TheGame(),
     ));
   }
 }

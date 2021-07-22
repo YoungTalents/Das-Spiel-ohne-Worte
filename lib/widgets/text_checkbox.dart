@@ -21,8 +21,7 @@ class TextCheckBoxState extends State<TextCheckBox> {
       children: <Widget>[
         Theme(
           data: Theme.of(context).copyWith(
-            unselectedWidgetColor: Colors.blueGrey,  
-            textSelectionHandleColor: Colors.amber        
+            unselectedWidgetColor: Colors.blueGrey
           ),
           child: Checkbox(onChanged: this.widget.onChanged, value: this.widget.value, checkColor: this.widget.color, focusColor: this.widget.color, activeColor: Colors.white),
         ),

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sign_writing/game_management.dart';
 import 'package:sign_writing/settings.dart';
-import 'package:sign_writing/sign_writing_page.dart';
 import 'package:sign_writing/widgets/game_tile.dart';
 
 class MatchingGame extends StatefulWidget {

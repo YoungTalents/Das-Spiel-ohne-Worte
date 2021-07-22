@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_writing/game_management.dart';
 import 'package:video_player/video_player.dart';
@@ -42,7 +43,6 @@ class GameTileState extends State<GameTile> {
           onTap: status == TileStatus.Default
             ? () {
                 onTileClick(tile);
-
                 if (tiles.every((t) => t.status == TileStatus.Done))
                   widget.callbackGameOver();
             }

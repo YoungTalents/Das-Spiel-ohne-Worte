@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:sign_writing/main.dart';
 import 'package:sign_writing/settings.dart';
 import 'package:sign_writing/widgets/text_checkbox.dart';
 import 'package:flutter/cupertino.dart';
@@ -71,10 +70,10 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
                             
                             children: [
                             Text("Game Categories", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, decoration: TextDecoration.underline),),
-                            GameCategoryTextCheckBox("BASIC", "Basics"),
-                            GameCategoryTextCheckBox("LETTERS", "Letters"),
-                            GameCategoryTextCheckBox("NUMBERS", "Numbers"),
-                            GameCategoryTextCheckBox("OTHER", "Others"),
+                            makeGameCategoryTextCheckBox("BASIC", "Basics"),
+                            makeGameCategoryTextCheckBox("LETTERS", "Letters"),
+                            makeGameCategoryTextCheckBox("NUMBERS", "Numbers"),
+                            makeGameCategoryTextCheckBox("OTHER", "Others"),
                           ]),
                         ])
                       )
@@ -86,7 +85,7 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
     );
   }
 
-  Widget GameCategoryTextCheckBox(categoryName, text) {
+  Widget makeGameCategoryTextCheckBox(categoryName, text) {
     return TextCheckBox(
       onChanged: (bool value) {
         setSystemSettingListItem(PreferencesKey.GAME_GROUPS, categoryName, value);

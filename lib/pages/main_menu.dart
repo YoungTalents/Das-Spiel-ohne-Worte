@@ -21,20 +21,18 @@ class MainMenu extends StatelessWidget {
       title: "Main Menu",
       body: 
         Column(children: [
-          MainMenuButton(Basics(), "The Basics"),
-          MainMenuButton(Excercises(), "Excercises"),
-          MainMenuButton(Games(), "Games"),
-          MainMenuButton(Intro(), "Introduction"),
+          makeMainMenuButton(Basics(), "The Basics"),
+          makeMainMenuButton(Excercises(), "Excercises"),
+          makeMainMenuButton(Games(), "Games"),
+          makeMainMenuButton(Intro(), "Introduction"),
         ])
     );
   }
 
-  Widget MainMenuButton(_redir, _text) {
+  Widget makeMainMenuButton(_redir, _text) {
     return ElevatedButton(
-      
       style: TextButton.styleFrom(
         backgroundColor: Colors.white,
-        
         //minimumSize: Size.fromWidth(0.5),
         elevation: 10,
         primary: Colors.blueGrey),

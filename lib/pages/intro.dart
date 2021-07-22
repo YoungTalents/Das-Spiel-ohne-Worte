@@ -1,7 +1,6 @@
 import 'package:sign_writing/environment.dart';
 import 'package:sign_writing/game_management.dart';
 import 'package:sign_writing/intro_slide.dart';
-import 'package:sign_writing/pages/main_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sign_writing/pages/the_game.dart';
@@ -58,21 +57,21 @@ class _IntroState extends State<Intro> {
           ),
           Column(children: <Widget>[
             CarouselSlider(
-                options: CarouselOptions(
-                  enableInfiniteScroll: false,
-                  height: wHeight * 0.84,
-                  viewportFraction: 1,
-                  autoPlay: false,
-                  // autoPlayInterval: autoPlayAnimationDuration: autoPlayCurve: pauseAutoPlayOnTouch:
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                ),
-                items: [getSlide1()/*,getSlide2(),getSlide3()*/],
+              options: CarouselOptions(
+                enableInfiniteScroll: false,
+                height: wHeight * 0.84,
+                viewportFraction: 1,
+                autoPlay: false,
+                // autoPlayInterval: autoPlayAnimationDuration: autoPlayCurve: pauseAutoPlayOnTouch:
+                onPageChanged: (index, reason) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
               ),
-              _currentIndex == slidesList.length - 1
+              items: [getSlide1()/*,getSlide2(),getSlide3()*/],
+            ),
+            _currentIndex == slidesList.length - 1
               ? Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => TheGame())); }, child: Text("Got it!", style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
@@ -98,7 +97,7 @@ class _IntroState extends State<Intro> {
   IntroSlide getSlide(slide) {
     return IntroSlide(
       body: Container(
-        padding: EdgeInsets.symmetric(vertical: wHeight * 0.1, horizontal: wWidth * 0.13),
+        padding: EdgeInsets.symmetric(horizontal: wWidth * 0.05),
         width: wWidth, 
         child: slide
       )
@@ -121,23 +120,26 @@ class _IntroState extends State<Intro> {
           Tile(generateContent(exampleGroup.entries[2]), 3, 1)
         ];
 
-        return getSlide( Column(children: [
+        return getSlide( Column(mainAxisAlignment: MainAxisAlignment.start, children: [
             Container(child:Text("Easily Learn and remember words in Sign Language", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))),
-            Container(height:100, child:ListView(
-              scrollDirection: Axis.horizontal,
-              semanticChildCount: 3,
-              shrinkWrap: true,
-              children: tiles.map((t) => Container(
-                  height: 100,
-                  margin: EdgeInsets.all(4),
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration( 
-                    color: Colors.transparent,
-                    border: Border.all(color: Colors.black)
-                  )   ,
-                  child: t.content.getWidget(), 
-                )).toList(),
-              ))
+            Container(width: wHeight * 0.15, height: wHeight * 0.53, 
+              padding: EdgeInsets.only(top: 20),
+              child:ListView(
+                // scrollDirection: Axis.horizontal,
+                semanticChildCount: 3,
+                shrinkWrap: true,
+                children: tiles.map((t) => Container(
+                    height: wHeight * 0.15,
+                    margin: EdgeInsets.all(4),
+                    padding: EdgeInsets.all(3),
+                    decoration: BoxDecoration( 
+                      color: Colors.transparent,
+                      border: Border.all(color: Colors.black)
+                    )   ,
+                    child: t.content.getWidget(), 
+                  )).toList(),
+                )
+              )
             ]));  
     }
 
