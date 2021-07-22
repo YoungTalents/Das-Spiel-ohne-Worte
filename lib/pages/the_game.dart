@@ -21,7 +21,9 @@ class TheGame extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: wHeight * 0.02, horizontal: wWidth * 0.02),      
         child: Column(children: [
           Text("Match tiles with the same meaning.", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
-          Container( height:wHeight*0.8, width: wHeight * 0.8,
+          Container( 
+            height:wHeight*0.8, 
+            width: wHeight * 0.8,
             padding: EdgeInsets.symmetric(horizontal: wWidth * 0.02, vertical: wHeight * 0.02),
             child: SizedBox( height:wHeight*0.8, width: wHeight * 0.8, 
               child: MatchingGame())

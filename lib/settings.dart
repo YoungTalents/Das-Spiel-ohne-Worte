@@ -3,6 +3,7 @@ import 'package:sign_writing/main.dart';
 class PreferencesKey {
   static const String LANGUAGE = "language";
   static const String SHOW_INTRO = "show_intro";
+  static const String GAME_GROUPS = "game_groups";
 }
 
 const DEFAULT_SYSTEM_LANGUAGE = 'DE';
@@ -16,10 +17,23 @@ void setSystemSetting(key, val) {
     prefs.setBool(key, val);
   else if (val is int)
     prefs.setInt(key, val);
-  else 
+  else if (val is List)
+    prefs.setStringList(key, val);
+  else
     prefs.setString(key, val);
-
+    
   SystemSettings.setValue(key, val);
+}
+
+void setSystemSettingListItem(key, val, isAdd) {
+  List<String> lst = prefs.getStringList(key);
+  
+  lst.remove(val);
+
+  if (isAdd) { lst.add(val); }
+
+  prefs.setStringList(key, lst);
+  SystemSettings.setValue(key, lst);
 }
 
 Object getSystemSettingOrDefault(key, def) {
@@ -32,11 +46,13 @@ Object getSystemSettingOrDefault(key, def) {
 class SystemSettings {
   static String language;
   static bool showIntro;
+  static List<String> gameGroups;
 
   static void setValue(key, val) {
     switch (key) {
-      case "language" : language = val; break;
-      case "show_intro" : showIntro = val; break;
+      case PreferencesKey.LANGUAGE : language = val; break;
+      case PreferencesKey.SHOW_INTRO : showIntro = val; break;
+      case PreferencesKey.GAME_GROUPS : gameGroups = val; break;
       default : break;
     }
   }

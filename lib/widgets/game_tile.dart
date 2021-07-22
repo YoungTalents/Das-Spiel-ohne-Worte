@@ -116,6 +116,19 @@ abstract class TileContent {
   Widget getWidget();
 }
 
+TileContent generateContent(GroupItem contentDef) {
+    TileContent tileContent;
+
+    switch (contentDef.type) {
+      case "Image": tileContent = ImageContent(Image.asset(contentDef.value)); break;
+      case "Text": tileContent = TextContent(contentDef.value); break;
+      case "Video": tileContent = VideoContent(contentDef.value); break;
+    }
+
+    return tileContent;
+  }
+
+
 class VideoContent extends TileContent {
   String _videoUrl;
   VideoPlayerController _controller;

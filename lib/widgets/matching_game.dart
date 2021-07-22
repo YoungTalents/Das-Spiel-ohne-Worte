@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:sign_writing/game_management.dart';
+import 'package:sign_writing/settings.dart';
+import 'package:sign_writing/sign_writing_page.dart';
 import 'package:sign_writing/widgets/game_tile.dart';
 
 class MatchingGame extends StatefulWidget {
@@ -17,50 +19,32 @@ class MatchingGameState extends State<MatchingGame> {
   List<Tile> shuffledTiles = [];
   List<Widget> tilesList = [];
 
-  TileContent generateContent(GroupItem contentDef) {
-    TileContent tileContent;
-
-    switch (contentDef.type) {
-      case "Image": tileContent = ImageContent(Image.asset(contentDef.value)); break;
-      case "Text": tileContent = TextContent(contentDef.value); break;
-      case "Video": tileContent = VideoContent(contentDef.value); break;
-    }
-
-    return tileContent;
+  List<Group> getAvailGroups() {
+    List<List<Group>> allGroups = SystemSettings.gameGroups.map((groupName) => (mapGroups[groupName] as List<Group>)).toList();
+    List<Group> groups = allGroups.expand((element) => element).toList();
+    return groups;
   }
 
   void _initGameMap() {
     int i1, i2, i3;
     Random random = new Random();
-    
-    i1 = random.nextInt(groups.length);
-    while ({null, i1}.contains(i2)) i2 = random.nextInt(groups.length);
-    while ({null, i1, i2}.contains(i3)) i3 = random.nextInt(groups.length);
-    
-    print("Chosen Groups: " + groups[i1].name + ", " + groups[i2].name + ", " + groups[i3].name);
-      gameMap = {
-        generateContent(groups[i1].entries[0]) : 1,
-        generateContent(groups[i1].entries[1]) : 1,
-        generateContent(groups[i1].entries[2]) : 1,
-        generateContent(groups[i2].entries[0]) : 2,
-        generateContent(groups[i2].entries[1]) : 2,
-        generateContent(groups[i2].entries[2]) : 2,
-        generateContent(groups[i3].entries[0]) : 3,
-        generateContent(groups[i3].entries[1]) : 3,
-        generateContent(groups[i3].entries[2]) : 3
-        /*ImageContent(Image.asset("assets/images/ic_image201.jpg")):1,
-        ImageContent(Image.asset("assets/images/ic_image202.jpg")):2,
-        ImageContent(Image.asset("assets/images/ic_image203.jpg")):3,
+    List<Group> availGroups = getAvailGroups();
 
-        //ImageContent(Image.asset("assets/images/ic_image201.jpg")):1,
-        //ImageContent(Image.asset("assets/images/ic_image202.jpg")):2,
-        //ImageContent(Image.asset("assets/images/ic_image203.jpg")):3,
-        VideoContent("assets/videos/auto.mp4"):1,
-        VideoContent("assets/videos/baum.mp4"):2,
-        VideoContent("assets/videos/kaffee.mp4"):3,
-        ImageContent(Image.asset("assets/images/ic_image101.jpg")):1,
-        ImageContent(Image.asset("assets/images/ic_image102.jpg")):2,
-        ImageContent(Image.asset("assets/images/ic_image103.jpg")):3*/
+    i1 = random.nextInt(availGroups.length);
+    while ({null, i1}.contains(i2)) i2 = random.nextInt(availGroups.length);
+    while ({null, i1, i2}.contains(i3)) i3 = random.nextInt(availGroups.length);
+    
+    print("Chosen Groups: " + availGroups[i1].name + ", " + availGroups[i2].name + ", " + availGroups[i3].name);
+      gameMap = {
+        generateContent(availGroups[i1].entries[0]) : 1,
+        generateContent(availGroups[i1].entries[1]) : 1,
+        generateContent(availGroups[i1].entries[2]) : 1,
+        generateContent(availGroups[i2].entries[0]) : 2,
+        generateContent(availGroups[i2].entries[1]) : 2,
+        generateContent(availGroups[i2].entries[2]) : 2,
+        generateContent(availGroups[i3].entries[0]) : 3,
+        generateContent(availGroups[i3].entries[1]) : 3,
+        generateContent(availGroups[i3].entries[2]) : 3
       }; 
   }
 
@@ -125,15 +109,22 @@ class MatchingGameState extends State<MatchingGame> {
           }
         }),
       Visibility(
-        child: Container(
-          child: Center(child: ElevatedButton(
-          onPressed: () { 
-            setState(() {
-              initGame();
-            }); },
-    
-          child: Text("Play Again"),), 
-        )),
+        child: Column(children: [
+          Center(child: ElevatedButton(
+            onPressed: () { 
+              setState(() {
+                initGame();
+              }); },
+            child: Text("Play Again"),), 
+          ),
+          Center(child: ElevatedButton(
+            onPressed: () { 
+              setState(() {
+                Scaffold.of(context).openDrawer();
+              }); },
+            child: Text("Change Settings"),), 
+          ),
+          ]),
         visible: tiles.every((t) => t.status == TileStatus.Done) ,
         
       )]);

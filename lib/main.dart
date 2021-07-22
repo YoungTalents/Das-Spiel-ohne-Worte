@@ -20,6 +20,7 @@ Future<void> loadSettings() async {
   prefs = await SharedPreferences.getInstance();
   SystemSettings.language = getSystemSettingOrDefault(PreferencesKey.LANGUAGE, DEFAULT_SYSTEM_LANGUAGE);
   SystemSettings.showIntro = getSystemSettingOrDefault(PreferencesKey.SHOW_INTRO, true);
+  SystemSettings.gameGroups = getSystemSettingOrDefault(PreferencesKey.GAME_GROUPS, ["BASIC"]);
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TheGame()// SystemSettings.showIntro ? Intro() : MainMenu(),
+      home: Intro()// SystemSettings.showIntro ? Intro() : MainMenu(),
     ));
   }
 }

@@ -1,8 +1,11 @@
 import 'package:sign_writing/environment.dart';
+import 'package:sign_writing/game_management.dart';
 import 'package:sign_writing/intro_slide.dart';
 import 'package:sign_writing/pages/main_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:sign_writing/pages/the_game.dart';
+import 'package:sign_writing/widgets/game_tile.dart';
 
 class Intro extends StatefulWidget {
   @override
@@ -21,8 +24,8 @@ class _IntroState extends State<Intro> {
   initSlidesList() {
     slidesList = [
       getSlide1(),
-      getSlide2(),
-      getSlide3()
+     // getSlide2(),
+     // getSlide3()
     ];
   }
   
@@ -67,12 +70,12 @@ class _IntroState extends State<Intro> {
                     });
                   },
                 ),
-                items: [getSlide1(),getSlide2(),getSlide3()],
+                items: [getSlide1()/*,getSlide2(),getSlide3()*/],
               ),
               _currentIndex == slidesList.length - 1
               ? Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => MainMenu())); }, child: Text("Got it!", style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
+                    TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => TheGame())); }, child: Text("Got it!", style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
               ],) 
               : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +104,7 @@ class _IntroState extends State<Intro> {
       )
     );
   }
-
+/*
   Widget getSlide1() {
     return getSlide(
       Column(children: [
@@ -110,6 +113,33 @@ class _IntroState extends State<Intro> {
         ],),
     );
   }
+*/
+    Widget getSlide1() {
+        tiles = [
+          Tile(generateContent(exampleGroup.entries[0]), 1, 1),
+          Tile(generateContent(exampleGroup.entries[1]), 2, 1),
+          Tile(generateContent(exampleGroup.entries[2]), 3, 1)
+        ];
+
+        return getSlide( Column(children: [
+            Container(child:Text("Easily Learn and remember words in Sign Language", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))),
+            Container(height:100, child:ListView(
+              scrollDirection: Axis.horizontal,
+              semanticChildCount: 3,
+              shrinkWrap: true,
+              children: tiles.map((t) => Container(
+                  height: 100,
+                  margin: EdgeInsets.all(4),
+                  padding: EdgeInsets.all(3),
+                  decoration: BoxDecoration( 
+                    color: Colors.transparent,
+                    border: Border.all(color: Colors.black)
+                  )   ,
+                  child: t.content.getWidget(), 
+                )).toList(),
+              ))
+            ]));  
+    }
 
    Widget getSlide2() {
     return getSlide(

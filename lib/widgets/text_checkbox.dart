@@ -17,7 +17,7 @@ class TextCheckBoxState extends State<TextCheckBox> {
   
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Row(mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         Theme(
           data: Theme.of(context).copyWith(

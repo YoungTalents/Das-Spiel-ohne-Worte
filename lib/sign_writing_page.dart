@@ -29,13 +29,13 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
   Widget build(BuildContext context) {
     wWidth = MediaQuery.of(context).size.width;
     wHeight = MediaQuery.of(context).size.height;
-    // GlobalKey _scaffoldKey = new GlobalKey();
-    GlobalKey _scaffoldKey = this.widget.passkey;
+    GlobalKey _scaffoldKey = new GlobalKey();
+    //GlobalKey _scaffoldKey = this.widget.passkey;
 
     return Scaffold(
       key: _scaffoldKey,
-      // drawerScrimColor: Colors.transparent,
-      // drawer: SideMenu(),
+      drawerScrimColor: Colors.transparent,
+      drawer: SideMenu(),
       body: Container(color: Colors.black12,
         child: Container(
           width: wWidth,
@@ -60,7 +60,7 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
                 ),
                 widget.body,
               ])),
-/*            Positioned(
+            Positioned(
               top: wHeight * 0.001,
               left: wWidth * 0.001,
               child: Container(
@@ -71,7 +71,7 @@ class _SignWritingPageState extends State<SignWritingPage> with TickerProviderSt
                   onPressed: () { (_scaffoldKey.currentState as ScaffoldState).openDrawer(); },
                 )
               )
-            )*/
+            )
           ]),
         )
       )
