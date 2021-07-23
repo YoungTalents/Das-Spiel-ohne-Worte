@@ -138,8 +138,8 @@ class VideoContent extends TileContent {
     _videoUrl = videoUrl;
     _controller = VideoPlayerController.network(_videoUrl);
     _controller.setLooping(true);
-    _controller.play();
     _controller.setVolume(0);
+    _controller.play();
     isInitialized = _controller.initialize();
   }
 
