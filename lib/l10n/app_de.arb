@@ -1,0 +1,22 @@
+{
+    "helloWorld": "Hallo Erde!",
+    "appTitle" : "das spiel - ohne worte",
+    "introductionTitle" : "Ziel:",
+    "introductionText" : "1 Vokabel in Gebärdensprache lernen und behalten:",
+    "intoductionButton" : "OK.",
+    "theGameTitle" : "The Game",
+    "theGameInstructions" : "Markiere die 3 Karten mit der gleichen Bedeutung",
+    "playAgainButton" : "Nochmal spielen",
+    "changeSettingsButton" : "Einstellungen ändern",
+    "settingsTitle" : "Einstellungen",
+    "optionShowIntro" : "Zeige einführung",
+    "gameCategoriesTitle" : "Kategorien",
+    "categoryBasics" : "Grundlagen",
+    "categoryLetters" : "Buchstaben",
+    "categoryNumbers" : "Zahlen",
+    "categoryOthers" : "Mehr ...",
+    "settingsApplyButton" : "OK",
+    "languageTitle" : "Sprache",
+    "languageOptionEnglish" : "Englisch",
+    "languageOptionGerman" : "Deutsch"
+}

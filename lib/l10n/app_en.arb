@@ -1,0 +1,25 @@
+{
+    "helloWorld": "Hello World!",
+    "@helloWorld": {
+      "description": "The conventional newborn programmer greeting"
+    },
+    "appTitle" : "the game - without words",
+    "introductionTitle" : "Introduction",
+    "introductionText" : "Easy Learn and remember words in Sign Language",
+    "intoductionButton" : "Got it!",
+    "theGameTitle" : "The Game",
+    "theGameInstructions" : "Match tiles with the same meaning",
+    "playAgainButton" : "Play again",
+    "changeSettingsButton" : "Change Settings",
+    "settingsTitle" : "Settings",
+    "optionShowIntro" : "Show Intro on Start",
+    "gameCategoriesTitle" : "Game Categories",
+    "categoryBasics" : "Basics",
+    "categoryLetters" : "Letters",
+    "categoryNumbers" : "Numbers",
+    "categoryOthers" : "Others",
+    "settingsApplyButton" : "Done",
+    "languageTitle" : "Language",
+    "languageOptionEnglish" : "English",
+    "languageOptionGerman" : "German"
+}

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:sign_writing/game_management.dart';
 import 'package:sign_writing/settings.dart';
 import 'package:sign_writing/widgets/game_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MatchingGame extends StatefulWidget {
   const MatchingGame({Key key}) : super(key: key);
@@ -92,7 +93,8 @@ class MatchingGameState extends State<MatchingGame> {
   @override
   Widget build(BuildContext context) {
     print("building game");
-    return Stack(children: [
+    return Stack(
+      children: [
       FutureBuilder(
         future: _initVideoPlayersFuture(),
         builder: (context, snapshot) {
@@ -115,18 +117,17 @@ class MatchingGameState extends State<MatchingGame> {
               setState(() {
                 initGame();
               }); },
-            child: Text("Play Again"),), 
+            child: Text(AppLocalizations.of(context).playAgainButton),), 
           ),
           Center(child: ElevatedButton(
             onPressed: () { 
               setState(() {
                 Scaffold.of(context).openDrawer();
               }); },
-            child: Text("Change Settings"),), 
+            child: Text(AppLocalizations.of(context).changeSettingsButton),), 
           ),
           ]),
-        visible: tiles.every((t) => t.status == TileStatus.Done) ,
-        
+        visible: tiles.every((t) => t.status == TileStatus.Done),
       )]);
   }
 }

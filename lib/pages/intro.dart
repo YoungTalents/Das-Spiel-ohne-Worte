@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:sign_writing/pages/the_game.dart';
 import 'package:sign_writing/widgets/game_tile.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Intro extends StatefulWidget {
   @override
@@ -47,20 +48,24 @@ class _IntroState extends State<Intro> {
     
     return Scaffold(
       body: Container(
+        height: wHeight,
         color: Colors.transparent,
         padding: EdgeInsets.symmetric(horizontal: wWidth * 0.001, vertical: wHeight * 0.02),
-        child:Column(children: [
-          Row(mainAxisAlignment: MainAxisAlignment.center,
-            children:[
-              Text("Introduction", textAlign: TextAlign.center, style: TextStyle(fontSize: 24))
-            ]
-          ),
-          Column(children: <Widget>[
-            CarouselSlider(
+        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Container(height:wHeight * 0.1, /*color:Colors.red,*/ 
+            child:Center(child:
+              Text(AppLocalizations.of(context).introductionTitle, textAlign: TextAlign.center, style: TextStyle(fontSize: 24))
+          )),
+          Container(height:wHeight * 0.7, /*color:Colors.green,*/ 
+            child: getSlide1()
+            /*CarouselSlider(
+
               options: CarouselOptions(
+                height: wHeight * 0.7,
+                
                 enableInfiniteScroll: false,
-                height: wHeight * 0.84,
-                viewportFraction: 1,
+                //height: wHeight * 0.7,
+                //viewportFraction: 0.7,
                 autoPlay: false,
                 // autoPlayInterval: autoPlayAnimationDuration: autoPlayCurve: pauseAutoPlayOnTouch:
                 onPageChanged: (index, reason) {
@@ -70,12 +75,11 @@ class _IntroState extends State<Intro> {
                 },
               ),
               items: [getSlide1()/*,getSlide2(),getSlide3()*/],
-            ),
+            )*/),
+          Container(height:wHeight * 0.15, /*color: Colors.amber,*/ 
+            child: Center(child:
             _currentIndex == slidesList.length - 1
-              ? Row(mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => TheGame())); }, child: Text("Got it!", style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
-              ],) 
+              ? TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => TheGame())); }, child: Text(AppLocalizations.of(context).intoductionButton, style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
               : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: map<Widget>(slidesList, (index, url) {
@@ -90,17 +94,22 @@ class _IntroState extends State<Intro> {
                   );
                 }),
               ),
-            ],
-          )])));
+             )
+             
+             ) 
+        ])
+      )
+    );
   }
 
-  IntroSlide getSlide(slide) {
-    return IntroSlide(
-      body: Container(
+  Widget getSlide(slide) {
+    // return IntroSlide(
+      // body: 
+      return Container(
         padding: EdgeInsets.symmetric(horizontal: wWidth * 0.05),
         width: wWidth, 
         child: slide
-      )
+      //)
     );
   }
 /*
@@ -114,21 +123,20 @@ class _IntroState extends State<Intro> {
   }
 */
     Widget getSlide1() {
-        tiles = [
+        var introTiles = [
           Tile(generateContent(exampleGroup.entries[0]), 1, 1),
           Tile(generateContent(exampleGroup.entries[1]), 2, 1),
           Tile(generateContent(exampleGroup.entries[2]), 3, 1)
         ];
 
-        return getSlide( Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Container(child:Text("Easily Learn and remember words in Sign Language", style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))),
+        return getSlide( Container(height: wHeight * 0.7, /*color: Colors.blue,*/ child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Container(height: wHeight * 0.17, /*color: Colors.purple,*/ child:Center(child:Text(AppLocalizations.of(context).introductionText, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
             Container(width: wHeight * 0.15, height: wHeight * 0.53, 
-              padding: EdgeInsets.only(top: 20),
               child:ListView(
                 // scrollDirection: Axis.horizontal,
                 semanticChildCount: 3,
                 shrinkWrap: true,
-                children: tiles.map((t) => Container(
+                children: introTiles.map((t) => Container(
                     height: wHeight * 0.15,
                     margin: EdgeInsets.all(4),
                     padding: EdgeInsets.all(3),
@@ -140,7 +148,9 @@ class _IntroState extends State<Intro> {
                   )).toList(),
                 )
               )
-            ]));  
+            ])
+          )
+        );  
     }
 
    Widget getSlide2() {

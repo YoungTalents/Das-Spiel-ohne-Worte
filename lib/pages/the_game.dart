@@ -1,9 +1,9 @@
 // import 'package:flutter_gifimage/flutter_gifimage.dart';
 import 'package:sign_writing/environment.dart';
 import 'package:sign_writing/sign_writing_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:sign_writing/widgets/matching_game.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TheGame extends StatelessWidget {
   final _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -16,11 +16,11 @@ class TheGame extends StatelessWidget {
 
     return SignWritingPage(
       passkey: _scaffoldKey,
-      title: "The Game",
+      title: AppLocalizations.of(context).theGameTitle,
       body: Container(
         padding: EdgeInsets.symmetric(vertical: wHeight * 0.02, horizontal: wWidth * 0.02),      
         child: Column(children: [
-          Text("Match tiles with the same meaning.", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
+          Text(AppLocalizations.of(context).theGameInstructions, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),),
           Container( 
             height: wHeight * 0.8, 
             width: wHeight * 0.8,

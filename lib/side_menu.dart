@@ -1,10 +1,14 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:sign_writing/environment.dart';
+import 'package:sign_writing/main.dart';
 import 'package:sign_writing/settings.dart';
+import 'package:sign_writing/widgets/matching_game.dart';
 import 'package:sign_writing/widgets/text_checkbox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SideMenu extends StatefulWidget {
   SideMenu({Key key, this.title}) : super(key: key);
@@ -52,23 +56,27 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
             
           padding: EdgeInsets.fromLTRB(wWidth * 0.05, wHeight * 0.05, wWidth * 0.05, wHeight * 0.05),
           child: Column(children: [
+              // TITLE
               Padding(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, wHeight * 0.03),
-                  child: Container(child: Text("Settings", style: TextStyle(fontSize: 30, color: Colors.blueGrey)))),
+                  child: Container(child: Text(AppLocalizations.of(context).settingsTitle, style: TextStyle(fontSize: 30, color: Colors.blueGrey)))),
+              
               Padding(padding: EdgeInsets.fromLTRB(wWidth * 0.03, 0, 0, 0),
                   child: Column(mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      // SHOW INTRO
                       Row(children: <Widget>[
                         TextCheckBox(
                           onChanged: (bool value) {
                             setSystemSetting(PreferencesKey.SHOW_INTRO, value);
                             setState(() {});
                           },
-                          text: "Show Intro on Start",
+                          text: AppLocalizations.of(context).optionShowIntro,
                           value: getSystemSetting(PreferencesKey.SHOW_INTRO),
                           color: Colors.blueGrey,
                         )
                       ]),
+                      // GAME CATEGORIES
                       Padding(padding: EdgeInsets.symmetric(vertical: 20), child:
                         Row(
                           children: [Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,7 +90,29 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
                             makeGameCategoryTextCheckBox("OTHER", AppLocalizations.of(context).categoryOthers, callback),
                           ]),
                         ])
-                      )
+                      ),
+                      // LANGUAGE
+                      Padding(padding: EdgeInsets.symmetric(vertical: 20), child:
+                        Row(
+                          children: [Column(crossAxisAlignment: CrossAxisAlignment.start,
+                            
+                            children: [
+                            Text(AppLocalizations.of(context).languageTitle, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, decoration: TextDecoration.underline),),
+                            DropdownButton<String>(
+                              value: SystemSettings.language,
+                              style: TextStyle(color: Colors.blueGrey),
+                              onChanged: (String newValue) {
+                                MyApp.of(context).setLocale(Locale.fromSubtags(languageCode: newValue));
+                              },
+                              items: [
+                                 DropdownMenuItem<String>(value: 'en', child: Text(AppLocalizations.of(context).languageOptionEnglish, style: TextStyle(color: Colors.blueGrey))),
+                                 DropdownMenuItem<String>(value: 'de', child: Text(AppLocalizations.of(context).languageOptionGerman, style: TextStyle(color: Colors.blueGrey))),   
+                              ]
+
+                              )
+                          ]),
+                        ])
+                      ),
                     ])
                 )
             ])
@@ -105,3 +135,4 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
     );
   }
 }
+

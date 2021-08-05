@@ -6,7 +6,7 @@ class PreferencesKey {
   static const String GAME_GROUPS = "game_groups";
 }
 
-const DEFAULT_SYSTEM_LANGUAGE = 'DE';
+const DEFAULT_SYSTEM_LANGUAGE = 'de';
 
 Object getSystemSetting(key) {
   return prefs.get(key);
