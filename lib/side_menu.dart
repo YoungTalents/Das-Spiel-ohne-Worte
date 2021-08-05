@@ -33,6 +33,11 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     double wWidth = MediaQuery.of(context).size.width;
     double wHeight = MediaQuery.of(context).size.height;
+    Function callback = () { 
+      if(matchingGameState != null) {
+        matchingGameState.currentState.initGame();
+      }
+    };
 
     return Container(
       color: Colors.black.withAlpha(180), 
@@ -69,11 +74,12 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
                           children: [Column(crossAxisAlignment: CrossAxisAlignment.start,
                             
                             children: [
-                            Text("Game Categories", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, decoration: TextDecoration.underline),),
-                            makeGameCategoryTextCheckBox("BASIC", "Basics"),
-                            makeGameCategoryTextCheckBox("LETTERS", "Letters"),
-                            makeGameCategoryTextCheckBox("NUMBERS", "Numbers"),
-                            makeGameCategoryTextCheckBox("OTHER", "Others"),
+                            Text(AppLocalizations.of(context).gameCategoriesTitle, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blueGrey, decoration: TextDecoration.underline),),
+                            
+                            makeGameCategoryTextCheckBox("BASIC", AppLocalizations.of(context).categoryBasics, callback),
+                            makeGameCategoryTextCheckBox("LETTERS", AppLocalizations.of(context).categoryLetters, callback),
+                            makeGameCategoryTextCheckBox("NUMBERS", AppLocalizations.of(context).categoryNumbers, callback),
+                            makeGameCategoryTextCheckBox("OTHER", AppLocalizations.of(context).categoryOthers, callback),
                           ]),
                         ])
                       )
@@ -85,11 +91,13 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
     );
   }
 
-  Widget makeGameCategoryTextCheckBox(categoryName, text) {
+  Widget makeGameCategoryTextCheckBox(categoryName, text, callback) {
     return TextCheckBox(
       onChanged: (bool value) {
-        setSystemSettingListItem(PreferencesKey.GAME_GROUPS, categoryName, value);
-        setState(() {});
+        setState(() {
+          setSystemSettingListItem(PreferencesKey.GAME_GROUPS, categoryName, value);
+          callback();  
+        });
       },
       text: text,
       value: (getSystemSetting(PreferencesKey.GAME_GROUPS) as List).contains(categoryName),
@@ -97,4 +105,3 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
     );
   }
 }
-

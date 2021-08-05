@@ -56,6 +56,7 @@ class MatchingGameState extends State<MatchingGame> {
   void initGame() {
     _initGameMap();
     _initBoard();
+    setState(() {});
   }
 
   void dispose() {

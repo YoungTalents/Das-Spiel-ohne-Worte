@@ -12,6 +12,7 @@ class TheGame extends StatelessWidget {
   Widget build(BuildContext context) {
     wWidth = MediaQuery.of(context).size.width;
     wHeight = MediaQuery.of(context).size.height;
+    matchingGameState = GlobalKey();
 
     return SignWritingPage(
       passkey: _scaffoldKey,
@@ -25,7 +26,7 @@ class TheGame extends StatelessWidget {
             width: wHeight * 0.8,
             padding: EdgeInsets.symmetric(horizontal: wWidth * 0.02, vertical: wHeight * 0.02),
             child: SizedBox(height: wHeight * 0.8, width: wHeight * 0.8, 
-              child: MatchingGame())
+              child: MatchingGame(key: matchingGameState))
             )
         ])
       )
