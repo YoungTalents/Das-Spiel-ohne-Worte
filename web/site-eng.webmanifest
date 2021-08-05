@@ -1,11 +1,11 @@
 {
-	"name": "Das Spiel",
-    "short_name": "Das Spiel",
+	"name": "The Game - Without Words",
+    "short_name": "The Game",
     "start_url": "/",
     "display": "fullscreen",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "A project by Young-Talents.org",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
 	"icons": [
