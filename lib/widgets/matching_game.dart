@@ -20,7 +20,7 @@ class MatchingGameState extends State<MatchingGame> {
   List<Widget> tilesList = [];
 
   List<Group> getAvailGroups() {
-    List<List<Group>> allGroups = SystemSettings.gameGroups.map((groupName) => (mapGroups[groupName] as List<Group>)).toList();
+    List<List<Group>> allGroups = SystemSettings.gameGroups.map((groupName) => ((mapCategories[groupName]).localize() as List<Group>)).toList();
     List<Group> groups = allGroups.expand((element) => element).toList();
     return groups;
   }
@@ -29,6 +29,12 @@ class MatchingGameState extends State<MatchingGame> {
     int i1, i2, i3;
     Random random = new Random();
     List<Group> availGroups = getAvailGroups();
+    
+    if (availGroups.isEmpty) {
+      setSystemSettingListItem(PreferencesKey.GAME_GROUPS, "BASIC", true);
+      availGroups = getAvailGroups();
+      print("availgroups 2: ${availGroups.length}");
+    }
 
     i1 = random.nextInt(availGroups.length);
     while ({null, i1}.contains(i2)) i2 = random.nextInt(availGroups.length);

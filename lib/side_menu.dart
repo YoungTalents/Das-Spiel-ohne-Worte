@@ -37,6 +37,7 @@ class _SideMenuState extends State<SideMenu> with SingleTickerProviderStateMixin
   Widget build(BuildContext context) {
     double wWidth = MediaQuery.of(context).size.width;
     double wHeight = MediaQuery.of(context).size.height;
+    
     Function callback = () { 
       if(matchingGameState != null) {
         matchingGameState.currentState.initGame();

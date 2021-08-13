@@ -124,9 +124,9 @@ class _IntroState extends State<Intro> {
 */
     Widget getSlide1() {
         var introTiles = [
-          Tile(generateContent(exampleGroup.entries[0]), 1, 1),
-          Tile(generateContent(exampleGroup.entries[1]), 2, 1),
-          Tile(generateContent(exampleGroup.entries[2]), 3, 1)
+          Tile(generateContent(categoryExample.localize()[0].entries[0]), 1, 1),
+          Tile(generateContent(categoryExample.localize()[0].entries[1]), 2, 1),
+          Tile(generateContent(categoryExample.localize()[0].entries[2]), 3, 1)
         ];
 
         return getSlide( Container(height: wHeight * 0.7, /*color: Colors.blue,*/ child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
