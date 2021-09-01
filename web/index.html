@@ -94,6 +94,7 @@
 
     if ('serviceWorker' in navigator) {
       // Service workers are supported. Use them.
+      self.addEventListener('fetch',() => console.log("fetch"));
       window.addEventListener('load', function () {
         // Wait for registration to finish before dropping the <script> tag.
         // Otherwise, the browser will load the script multiple times,
@@ -105,6 +106,14 @@
               serviceWorker.addEventListener('statechange', () => {
                 if (serviceWorker.state == 'activated') {
                   console.log('Installed new service worker.');
+
+                  let useHtml = true;
+                  if(useHtml) {
+                    window.flutterWebRenderer = "html";
+                  } else {
+                    window.flutterWebRenderer = "canvaskit";
+                  }
+
                   loadMainDartJs();
                 }
               });
