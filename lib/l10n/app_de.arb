@@ -1,11 +1,11 @@
 {
     "helloWorld": "Hallo Erde!",
-    "appTitle" : "Das Spiel - Ohne Worte",
+    "appTitle" : "Das Spiel \u00B7 Ohne Worte",
     "introductionTitle" : "Ziel:",
     "introductionText" : "1 Vokabel in Gebärdensprache lernen und behalten:",
     "introductionWord" : "„Der Baum“",
     "intoductionButton" : "OK.",
-    "theGameTitle" : "Das Spiel \u25CF ohne Worte",
+    "theGameTitle" : "Das Spiel \u00B7 ohne Worte",
     "theGameInstructions" : "Markiere die 3 Karten mit der gleichen Bedeutung",
     "playAgainButton" : "Nochmal spielen",
     "changeSettingsButton" : "Einstellungen ändern",
