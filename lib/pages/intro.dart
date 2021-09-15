@@ -52,11 +52,11 @@ class _IntroState extends State<Intro> {
         color: Colors.transparent,
         padding: EdgeInsets.symmetric(horizontal: wWidth * 0.001, vertical: wHeight * 0.02),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Container(height:wHeight * 0.1, /*color:Colors.red,*/ 
+          Container(height:wHeight * 0.1,  
             child:Center(child:
-              Text(AppLocalizations.of(context).introductionTitle, textAlign: TextAlign.center, style: TextStyle(fontSize: 24))
+              Text(AppLocalizations.of(context).introductionTitle, textAlign: TextAlign.center, style: TextStyle(fontSize: 20,  fontWeight: FontWeight.bold))
           )),
-          Container(height:wHeight * 0.7, /*color:Colors.green,*/ 
+          Container(height:wHeight * 0.7,  
             child: getSlide1()
             /*CarouselSlider(
 
@@ -76,7 +76,7 @@ class _IntroState extends State<Intro> {
               ),
               items: [getSlide1()/*,getSlide2(),getSlide3()*/],
             )*/),
-          Container(height:wHeight * 0.15, /*color: Colors.amber,*/ 
+          Container(height:wHeight * 0.15,  
             child: Center(child:
             _currentIndex == slidesList.length - 1
               ? TextButton(onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => TheGame())); }, child: Text(AppLocalizations.of(context).intoductionButton, style: TextStyle(fontSize:30, fontWeight: FontWeight.bold),))
@@ -129,9 +129,9 @@ class _IntroState extends State<Intro> {
           Tile(generateContent(categoryExample.localize()[0].entries[2]), 3, 1)
         ];
 
-        return getSlide( Container(height: wHeight * 0.7, /*color: Colors.blue,*/ child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Container(height: wHeight * 0.1, /*color: Colors.purple,*/ child:Center(child:Text(AppLocalizations.of(context).introductionText, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
-            Container(height: wHeight * 0.07, /*color: Colors.purple,*/ child:Center(child:Text(AppLocalizations.of(context).introductionWord, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)))),
+        return getSlide( Container(height: wHeight * 0.7, child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+            Container(height: wHeight * 0.1, child:Center(child:Text(AppLocalizations.of(context).introductionText, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
+            Container(height: wHeight * 0.07, child:Center(child:Text(AppLocalizations.of(context).introductionWord, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
             Container(width: wHeight * 0.15, height: wHeight * 0.53, 
               child:ListView(
                 // scrollDirection: Axis.horizontal,
