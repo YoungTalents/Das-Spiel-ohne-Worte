@@ -130,7 +130,7 @@ class _IntroState extends State<Intro> {
         ];
 
         return getSlide( Container(height: wHeight * 0.7, child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Container(height: wHeight * 0.1, child:Center(child:Text(AppLocalizations.of(context).introductionText, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
+            Container(height: wHeight * 0.1, child:Center(child:Text(AppLocalizations.of(context).introductionText, textAlign: TextAlign.center, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
             Container(height: wHeight * 0.07, child:Center(child:Text(AppLocalizations.of(context).introductionWord, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)))),
             Container(width: wHeight * 0.15, height: wHeight * 0.53, 
               child:ListView(
